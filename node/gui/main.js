@@ -24,13 +24,18 @@ app.on('second-instance', (_e, argv) => {
 })
 
 function resolveAddonPath() {
-  const candidate = path.resolve(__dirname, '../addon/build/Release/pdfx.node')
-  if (!fs.existsSync(candidate)) {
-    throw new Error(
-      `Native addon not found at ${candidate}. Build first:\n  cd ../addon && npm i && npm run build`
-    )
-  }
-  return candidate
+  // Dev (from repo)
+  const devCandidate = path.resolve(__dirname, '../addon/build/Release/pdfx.node')
+  if (fs.existsSync(devCandidate)) return devCandidate
+
+  // Packaged (placed via extraResources)
+  const prodCandidate = path.join(process.resourcesPath, 'native', 'pdfx.node')
+  if (fs.existsSync(prodCandidate)) return prodCandidate
+
+  throw new Error(
+    `Native addon not found.\nTried:\n  ${devCandidate}\n  ${prodCandidate}\n` +
+    `Build it first: cd ../addon && npm i && npm run build`
+  )
 }
 
 function loadAddonOrDie() {
