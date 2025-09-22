@@ -1,0 +1,72 @@
+{
+  "name": "pdfx-gui",
+  "version": "0.1.0",
+  "private": true,
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron .",
+    "postinstall": "node -e \"console.log('Remember to build addon: cd ../addon && npm i && npm run build')\"",
+    "build:addon": "cd ../addon && npm ci && npm run build",
+    "dist:mac:arm64": "npm run build:addon && electron-builder --mac dmg --arm64",
+    "dist:mac:x64": "npm run build:addon && electron-builder --mac dmg --x64",
+    "dist:win": "npm run build:addon && electron-builder --win nsis --x64",
+    "dist": "npm run build:addon && electron-builder -m dmg -w nsis"
+  },
+  "devDependencies": {
+    "electron": "^38.1.2",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "dev.pdfx.app",
+    "productName": "PDFX",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.cjs",
+      "renderer/**/*",
+      "!**/*.map"
+    ],
+    "extraResources": [
+      {
+        "from": "../addon/build/Release/pdfx.node",
+        "to": "native/pdfx.node"
+      }
+    ],
+    "compression": "maximum",
+    "asar": true,
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "category": "public.app-category.utilities",
+      "artifactName": "PDFX-mac-${arch}-${version}.${ext}"
+    },
+    "dmg": {
+      "artifactName": "PDFX-${arch}-${version}.dmg"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "PDFX-win-${arch}-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "allowElevation": false,
+      "allowToChangeInstallationDirectory": false
+    },
+    "publish": [
+      "github"
+    ]
+  }
+}

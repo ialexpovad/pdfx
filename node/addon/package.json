@@ -1,0 +1,16 @@
+{
+  "name": "pdfx-addon",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "rimraf build && cmake-js build",
+    "rebuild": "rimraf build && cmake-js rebuild",
+    "clean": "rimraf build",
+    "print:artifact": "node -e \"console.log(require('path').join(__dirname,'build','Release','pdfx.node'))\""
+  },
+  "devDependencies": {
+    "cmake-js": "^7.2.1",
+    "node-addon-api": "^7.0.0",
+    "rimraf": "^6.0.0"
+  }
+}
