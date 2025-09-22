@@ -1,5 +1,13 @@
 # PDFX — PoDoFo 1.x Text Extractor
 
+[![Build](https://img.shields.io/badge/build-CMake-blue.svg)](#)
+[![Core](https://img.shields.io/badge/core-C%2B%2B17-00599C.svg)](#)
+[![Addon](https://img.shields.io/badge/addon-Node.js%20native%20addon-339933.svg)](#)
+[![GUI](https://img.shields.io/badge/GUI-Electron-47848F.svg)](#)
+[![PDF](https://img.shields.io/badge/PDF-PoDoFo%201.x-orange.svg)](#)
+[![License](https://img.shields.io/badge/License-MIT-lightgrey.svg)](#)
+[![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux-informational.svg)](#)
+
 Lightweight PDF text extractor with a C++ core (PoDoFo 1.x), a Node.js native addon, and an Electron GUI.
 
 ![PDFX](./assets/screenshot.png)
