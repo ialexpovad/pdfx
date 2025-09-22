@@ -23,3 +23,4 @@ node/addon/node_modules
 node/addon/build
 node/gui/node_modules
 .DS_Store
+.hintrc
