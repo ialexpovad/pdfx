@@ -2,6 +2,9 @@ const { contextBridge, ipcRenderer } = require('electron')
 
 /** Strict, whitelisted IPC bridge */
 const api = {
+  // Expose platform for CSS/layout tweaks (e.g., traffic lights padding on macOS)
+  platform: process.platform,
+
   selectPdf: () => ipcRenderer.invoke('dialog:openPdf'),
   extractAll: (filePath) => ipcRenderer.invoke('pdfx:extractAll', String(filePath)),
   extractPages: (filePath, pages) => {
@@ -13,6 +16,11 @@ const api = {
     if (typeof cb !== 'function') return () => {}
     ipcRenderer.on('pdfx:error', (_evt, msg) => cb(msg))
     return () => ipcRenderer.removeAllListeners('pdfx:error')
+  },
+  onAction: (cb) => {
+    if (typeof cb !== 'function') return () => {}
+    ipcRenderer.on('ui:action', (_evt, name) => cb(name))
+    return () => ipcRenderer.removeAllListeners('ui:action')
   }
 }
 
