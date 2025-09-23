@@ -203,7 +203,6 @@ It expects the native addon at one of:
 > **Note:** `node/gui` currently lacks a `package.json`. Create one as shown below, then install and run Electron.
 
 ```json
-// node/gui/package.json (suggested)
 {
   "name": "pdfx-gui",
   "version": "0.1.0",
